@@ -1,12 +1,12 @@
-import { MsgBody, MsgList, MsgText } from "./Style"
+import { MsgBody, MsgText } from "./Style"
 
-export const MsgBallon = (
+export const MsgBallon = ({
     lado,
-    texto
-) => {
+    texto = ""
+}) => {
     return(
-        <MsgBody>
-            <MsgText>{texto}</MsgText>
+        <MsgBody lado={lado}>
+            <MsgText>{`${texto}`}</MsgText>
         </MsgBody>
     )
 }
