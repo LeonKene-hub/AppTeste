@@ -4,6 +4,7 @@ import { MsgList } from './src/components/msn/Style';
 import { MsgBallon } from './src/components/msn/Msg';
 import { View } from 'react-native';
 import { useState } from 'react';
+import api from './src/service/service';
 
 export default function App() {
   const [dadosFixos, setDadosFixos] = useState([
@@ -14,6 +15,16 @@ export default function App() {
 
   const [value, setValue] = useState("")
   const [tipo, setTipo] = useState()
+
+  async function TextToSpeech() {
+    //console.log("entrou");
+    try {
+      const response = await api.post(`http://localhost:5112/api/texttospeech`, {text: value})
+      console.log(response.status);
+    } catch (error) {
+      console.log("erro na requisicao de texto para fala: " + error );
+    }
+  }
   
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
@@ -29,6 +40,7 @@ export default function App() {
         value={value}
         tipo={value != "" ? "digitar" : "audio"}
         onChangeText={(newValue) => setValue(newValue)}
+        onPress={() => {TextToSpeech()}}
       />
     </View>
   );
